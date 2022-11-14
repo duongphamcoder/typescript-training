@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel src/index.html",
+    "json": "json-server --watch src/db.json",
     "build": "parcel build  --no-cache"
   },
   "author": "",
@@ -13,5 +14,8 @@
     "nodemon": "^2.0.20",
     "parcel": "^2.8.0",
     "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "json-server": "^0.17.1"
   }
 }
