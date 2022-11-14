@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 5px 0;
 }
 
 .form-item-icon {
@@ -14,13 +15,37 @@
 .form-item-input {
   flex: 1;
   display: flex;
-  padding: 0 10px 0 0;
+  padding: 15px 10px 15px 0;
 }
 
-.form-item-input input {
+.form-item-input input,
+.form-item-input .pesudo {
+  padding: 0;
+  margin: 0;
   flex-basis: 100%;
-  padding: 15px 0;
   border: none;
   outline: none;
   font-size: 16px;
+  background-color: transparent;
+  line-height: 24px;
+}
+
+.form-item-input .pesudo {
+  text-align: left;
+}
+
+.form-item-input .form-item-input-value {
+  display: none;
+}
+
+.form-item-input.edit .pesudo {
+  display: none;
+}
+
+.form-item-input.edit .form-item-input-value {
+  display: block;
+}
+
+.form-item.completed .pesudo {
+  text-decoration: line-through;
 }
