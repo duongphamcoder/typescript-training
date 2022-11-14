@@ -1,0 +1,11 @@
+.form-wrapper {
+  text-align: center;
+}
+
+.form {
+  width: 550px;
+  margin: 0 auto;
+  background-color: var(--fifth-color);
+  border-radius: 10px;
+  box-shadow: 0 7px 10px 1px rgb(170, 170, 170);
+}

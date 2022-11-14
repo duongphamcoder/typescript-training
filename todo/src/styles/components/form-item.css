@@ -1,0 +1,26 @@
+.form-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-item-icon {
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-item-input {
+  flex: 1;
+  display: flex;
+  padding: 0 10px 0 0;
+}
+
+.form-item-input input {
+  flex-basis: 100%;
+  padding: 15px 0;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}

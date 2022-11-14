@@ -1,0 +1,59 @@
+/* 
+    add to late
+*/
+
+.btn {
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.btn-tick {
+  border: none;
+  position: relative;
+}
+
+.btn-tick::after {
+  position: absolute;
+  content: "";
+  height: 10px;
+  width: 3px;
+  background-color: var(--third-color);
+  left: 50%;
+  top: 50%;
+  transform: rotate(-45deg) translate(-50%, -50%);
+}
+
+.btn-tick::before {
+  content: "";
+  height: 18px;
+  width: 3px;
+  background-color: var(--third-color);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: rotate(45deg) translate(-50%, -50%);
+}
+
+.btn-checkbox {
+  border: 2px solid var(--third-color);
+  position: relative;
+}
+
+.btn-checkbox.checked::after {
+  position: absolute;
+  content: "";
+  width: 70%;
+  height: 70%;
+  background-color: var(--third-color);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 100%;
+}
+
+.btn-checkbox,
+.btn-tick {
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+}
