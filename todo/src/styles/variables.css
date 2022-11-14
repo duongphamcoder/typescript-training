@@ -1,3 +1,9 @@
 :root {
   --font-roboto: "Roboto", sans-serif;
+  --primary-color: #222222;
+  --secondary-color: #4c4c4c;
+  --third-color: #008000;
+  --fourth-color: #ff0000;
+  --fifth-color: #fff;
+  --default-color: #000;
 }
