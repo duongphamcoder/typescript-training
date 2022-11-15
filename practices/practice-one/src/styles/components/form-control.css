@@ -1,8 +1,13 @@
 .form-control {
     display: flex;
-    align-controls: center;
+    align-items: center;
     justify-content: center;
     padding: 5px 0;
+    border-bottom: 1px solid rgba(192, 192, 192, 0.4);
+}
+
+.form-control:last-child {
+    border: unset;
 }
 
 .form-control-icon {
@@ -10,6 +15,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.form-control-icon:last-child {
+    display: none;
+}
+
+.form-control:hover .form-control-icon:last-child {
+    display: block;
 }
 
 .form-control-input {

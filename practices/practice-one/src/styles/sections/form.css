@@ -11,9 +11,10 @@
 }
 
 .form-submit {
-    border-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
-.form-submit.not-empty {
+.form.not-empty .form-submit {
     box-shadow: 0 1px 8px rgb(178, 178, 178);
 }
