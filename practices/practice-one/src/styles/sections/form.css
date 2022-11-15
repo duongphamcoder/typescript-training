@@ -1,0 +1,19 @@
+.form-wrapper {
+    text-align: center;
+}
+
+.form {
+    width: 550px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 7px 10px 1px rgb(170, 170, 170);
+}
+
+.form-submit {
+    border-radius: 10px;
+}
+
+.form-submit.not-empty {
+    box-shadow: 0 1px 8px rgb(178, 178, 178);
+}
