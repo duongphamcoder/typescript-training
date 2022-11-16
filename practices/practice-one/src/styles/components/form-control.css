@@ -1,0 +1,64 @@
+.form-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(192, 192, 192, 0.4);
+}
+
+.form-control:last-child {
+    border: unset;
+}
+
+.form-control-icon {
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-control-icon:last-child {
+    display: none;
+}
+
+.form-control:hover .form-control-icon:last-child {
+    display: block;
+}
+
+.form-control-input {
+    flex: 1;
+    display: flex;
+    padding: 15px 10px 15px 0;
+}
+
+.form-control-input input,
+.form-control-input .pesudo {
+    padding: 0;
+    margin: 0;
+    flex-basis: 100%;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    background-color: transparent;
+    line-height: 24px;
+}
+
+.form-control-input .pesudo {
+    text-align: left;
+}
+
+.form-control-input .form-control-input-value {
+    display: none;
+}
+
+.form-control-input.edit .pesudo {
+    display: none;
+}
+
+.form-control-input.edit .form-control-input-value {
+    display: block;
+}
+
+.form-control.completed .pesudo {
+    text-decoration: line-through;
+}
