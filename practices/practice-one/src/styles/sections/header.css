@@ -1,0 +1,15 @@
+/* add to late */
+.header-wrapper {
+    padding: 35px 0;
+    text-align: center;
+}
+
+.heading {
+    display: inline-block;
+    font-size: 28px;
+    font-weight: 500;
+    background-image: url(../../assets/images/backgound-text.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
