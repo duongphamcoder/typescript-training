@@ -1,19 +1,20 @@
-import {createElement} from '../../helpers/bind-dom.helper'
+import { createElement } from '../../helpers/bind-dom.helper'
 
 interface Param {
     data: {
-        id:number,
-        description:string,
-        isCompleted:boolean
+        id: number,
+        description: string,
+        isCompleted: boolean
     },
-    viewHandleCompletedTodo:Function,
-    viewHandleUpdateTodo:Function,
-    viewHandleDeletedTodo:Function,
+    viewHandleCompletedTodo: Function,
+    viewHandleUpdateTodo: Function,
+    viewHandleDeletedTodo: Function,
 }
 
 
-export default  (param:Param):HTMLLIElement => {
+export default (param: Param): HTMLLIElement => {
     const liElement = createElement('li') as HTMLLIElement;
+    liElement.classList.add('form-control')
     const html = ` 
     <!-- add completed class when select button -->
     <li class="form-control">
