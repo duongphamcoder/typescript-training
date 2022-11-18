@@ -3,3 +3,7 @@ export const createElement = (el:string):HTMLElement =>{
     return element
 }
 
+export const querySelector = (selector:string):HTMLElement =>{
+    const element = document.querySelector(selector) as HTMLElement
+    return element;
+}
