@@ -37,7 +37,7 @@ export default class ToDoView {
             data: {
                 id: 1,
                 description: 'Pham Tan Duong',
-                isCompleted: false
+                isCompleted: true
             },
             viewHandleCompletedTodo: () => { },
             viewHandleUpdateTodo: () => { },

@@ -14,14 +14,15 @@ interface Param {
 
 export default (param: Param): HTMLLIElement => {
     const liElement = createElement('li') as HTMLLIElement;
-    liElement.classList.add('form-control')
+    const completed: string = param.data.isCompleted ? 'completed' : '';
+    liElement.classList.add('form-control', completed)
     const html = ` 
         <div class="form-control-icon">
             <!--
          - add checked class when selected
          - also have to add the completed class when adding the checked class
         -->
-            <button class="btn btn-checkbox" data-completed='${param.data.id}'></button>
+            <button class="btn btn-checkbox ${param.data.isCompleted ? 'checked' : ''}" data-completed='${param.data.id}'></button>
         </div>
         <!--add edit class when you want to edit-->
         <div class="form-control-input">
