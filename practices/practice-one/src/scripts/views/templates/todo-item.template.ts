@@ -16,8 +16,6 @@ export default (param: Param): HTMLLIElement => {
     const liElement = createElement('li') as HTMLLIElement;
     liElement.classList.add('form-control')
     const html = ` 
-    <!-- add completed class when select button -->
-    <li class="form-control">
         <div class="form-control-icon">
             <!--
          - add checked class when selected
@@ -37,11 +35,12 @@ export default (param: Param): HTMLLIElement => {
         </div>
         <div class="form-control-icon">
             <button class="btn btn-delete" data-deleted='${param.data.id}'></button>
-        </div>
-    </li>`
+        </div>`
     const btnComplete = liElement.querySelector('.btn-checkbox');
     const inputUpdate = liElement.querySelector('.form-control-input-value')
     const btnDelete = liElement.querySelector('.btn-delete');
     liElement.innerHTML = html;
+
+    // <!-- add completed class when select button -->
     return liElement
 }
