@@ -1,0 +1,17 @@
+.btn {
+    background-color: transparent;
+    cursor: pointer;
+    position: relative;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+}
+
+.btn-default {
+    background-color: white;
+}
