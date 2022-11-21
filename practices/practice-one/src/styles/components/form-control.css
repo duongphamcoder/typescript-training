@@ -1,0 +1,134 @@
+.form-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(192, 192, 192, 0.4);
+}
+
+.form-control:last-child {
+    border: unset;
+}
+
+.form-control .form-control-icon {
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-control .form-control-icon:last-child {
+    display: none;
+}
+
+.form-control .form-control:hover .form-control-icon:last-child {
+    display: block;
+}
+
+.form-control .form-control-input {
+    flex: 1;
+    display: flex;
+    padding: 15px 10px 15px 0;
+}
+
+.form-control .form-control-input input,
+.form-control .form-control-input .pesudo {
+    padding: 0;
+    margin: 0;
+    flex-basis: 100%;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    background-color: transparent;
+    line-height: 24px;
+}
+
+.form-control .form-control-input .pesudo {
+    text-align: left;
+}
+
+.form-control .form-control-input .form-control-input-value {
+    display: none;
+}
+
+.form-control.form-control-input.edit .pesudo {
+    display: none;
+}
+
+.form-control.form-control-input.edit .form-control-input-value {
+    display: block;
+}
+
+.form-control.completed .pesudo {
+    text-decoration: line-through;
+}
+
+.form-control .btn-tick::after {
+    position: absolute;
+    content: '';
+    height: 10px;
+    width: 3px;
+    background-color: var(--cool-color);
+    left: 50%;
+    top: 50%;
+    transform: rotate(-45deg) translate(-50%, -50%);
+}
+
+.form-control .btn-tick::before {
+    content: '';
+    height: 18px;
+    width: 3px;
+    background-color: var(--cool-color);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: rotate(45deg) translate(-50%, -50%);
+}
+
+.form-control .btn-checkbox {
+    border: 2px solid var(--cool-color);
+}
+
+.form-control .btn-checkbox.checked::after {
+    position: absolute;
+    content: '';
+    width: 70%;
+    height: 70%;
+    background-color: var(--cool-color);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 100%;
+}
+
+.form-control .btn-delete,
+.form-control .btn-tick {
+    border: none;
+}
+
+.form-control .btn-delete::before,
+.form-control .btn-delete::after {
+    position: absolute;
+    content: '';
+    height: 15px;
+    width: 3px;
+    background-color: var(--light-color);
+}
+
+.form-control .btn-delete::after {
+    transform: rotate(45deg);
+    top: 0;
+}
+
+.form-control .btn-delete::before {
+    transform: rotate(-45deg);
+    top: 0;
+}
+
+.form-control .btn-checkbox,
+.form-control .btn-tick,
+.form-control .btn-delete {
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+}
