@@ -2,7 +2,7 @@
     text-align: center;
 }
 
-.form-wrapper .form {
+.form {
     width: 550px;
     margin: 0 auto;
     background-color: white;
@@ -10,11 +10,11 @@
     box-shadow: 0 7px 10px 1px rgb(170, 170, 170);
 }
 
-.form-wrapper .form-submit {
+.form .form-submit {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
 
-.form-wrapper .form.not-empty .form-submit {
+.form.not-empty .form-submit {
     box-shadow: 0 1px 8px rgb(178, 178, 178);
 }
