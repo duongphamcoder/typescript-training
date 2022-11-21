@@ -1,10 +1,14 @@
 /* add to late */
-.header-wrapper {
+
+.header {
+}
+
+.header .header-wrapper {
     padding: 35px 0;
     text-align: center;
 }
 
-.heading {
+.header .heading {
     display: inline-block;
     font-size: 28px;
     font-weight: 500;
