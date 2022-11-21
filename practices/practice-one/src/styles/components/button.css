@@ -1,10 +1,23 @@
 /* 
-    add to late
+    Add to late
 */
 
 .btn {
     background-color: transparent;
     cursor: pointer;
+    position: relative;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+}
+
+.btn-default {
+    background-color: white;
 }
 
 .btn-tick::after {
@@ -31,7 +44,6 @@
 
 .btn-checkbox {
     border: 2px solid var(--cool-color);
-    position: relative;
 }
 
 .btn-checkbox.checked::after {
@@ -49,7 +61,6 @@
 .btn-delete,
 .btn-tick {
     border: none;
-    position: relative;
 }
 
 .btn-delete::before,
