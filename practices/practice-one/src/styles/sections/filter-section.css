@@ -5,7 +5,7 @@
     align-items: center;
 }
 
-.filter {
+.filter-button .filter {
     display: flex;
     gap: 15px;
 }
