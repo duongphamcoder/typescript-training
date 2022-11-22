@@ -1,5 +1,5 @@
 export const createElement = (el: string): HTMLElement => {
-    const element = document.createElement(el)
-    return element
+    const element = document.createElement(el);
+    return element;
 }
 
