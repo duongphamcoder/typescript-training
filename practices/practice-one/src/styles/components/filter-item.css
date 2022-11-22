@@ -1,0 +1,14 @@
+/* add to late */
+
+.filter-item a {
+    display: inline-block;
+    text-decoration: none;
+    color: var(--default-color);
+    text-transform: capitalize;
+    padding: 5px;
+}
+
+.filter-item.active,
+.filter-item:hover {
+    box-shadow: 0 0 0 1px lightsalmon;
+}
