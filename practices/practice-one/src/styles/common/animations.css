@@ -1,0 +1,10 @@
+@keyframes sildeIn {
+    from {
+        transform: translateX(90%);
+        opacity: 0.3;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}

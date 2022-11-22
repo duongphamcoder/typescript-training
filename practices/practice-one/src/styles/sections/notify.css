@@ -1,0 +1,19 @@
+.notification {
+    position: fixed;
+    width: 450px;
+    max-height: 80px;
+    box-shadow: 0 0 0 3px rgba(15, 163, 89, 0.6);
+    top: 50px;
+    right: 10px;
+    padding: 20px 10px;
+    display: none;
+    align-items: center;
+    background-color: rgb(47, 216, 32);
+    color: white;
+    border-radius: 2px;
+}
+
+.notification.hide {
+    display: flex;
+    animation: sildeIn 0.5s linear;
+}
