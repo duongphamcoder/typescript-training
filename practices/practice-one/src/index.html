@@ -1,77 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="./styles/main.css" />
-        <link rel="icon" href="./assets/images/logo.png" />
-        <title>To-do</title>
-    </head>
-    <body>
-        <header class="header">
-            <section class="header-wrapper container">
-                <h1 class="heading">Todo list with TypeScript</h1>
-            </section>
-        </header>
-        <main class="form-wrapper container">
-            <!--add class not-empty when todo list has data-->
-            <section class="form not-empty">
-                <section class="form-submit">
-                    <div class="form-control">
-                        <!--add the checked class when clicking the button-->
-                        <div class="form-control-icon">
-                            <button class="btn btn-tick"></button>
-                        </div>
-                        <div class="form-control-input">
-                            <input
-                                type="text"
-                                placeholder="What will you focus on today?"
-                            />
-                        </div>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/main.css" />
+    <link rel="icon" href="./assets/images/logo.png" />
+    <title>To-do</title>
+</head>
+
+<body>
+    <header class="header">
+        <section class="header-wrapper container">
+            <h1 class="heading">Todo list with TypeScript</h1>
+        </section>
+    </header>
+    <main class="form-wrapper container">
+        <!--add class not-empty when todo list has data-->
+        <section class="form not-empty">
+            <section class="form-submit">
+                <div class="form-control">
+                    <!--add the checked class when clicking the button-->
+                    <div class="form-control-icon">
+                        <button class="btn btn-tick"></button>
                     </div>
-                </section>
-                <ul class="todos">
-                    <!-- add completed class when select button -->
-                    <li class="form-control">
-                        <div class="form-control-icon">
-                            <!--
+                    <div class="form-control-input">
+                        <input type="text" placeholder="What will you focus on today?" />
+                    </div>
+                </div>
+            </section>
+            <ul class="todos">
+                <!-- add completed class when select button -->
+                <li class="form-control">
+                    <div class="form-control-icon">
+                        <!--
                                 - add checked class when selected
                                 - also have to add the completed class when adding the checked class
                             -->
-                            <button class="btn btn-checkbox"></button>
-                        </div>
-                        <!--add edit class when you want to edit-->
-                        <div class="form-control-input">
-                            <p class="pesudo"></p>
-                            <input
-                                class="form-control-input-value"
-                                type="text"
-                                value=""
-                            />
-                        </div>
-                        <div class="form-control-icon">
-                            <button class="btn btn-delete"></button>
-                        </div>
+                        <button class="btn btn-checkbox"></button>
+                    </div>
+                    <!--add edit class when you want to edit-->
+                    <div class="form-control-input">
+                        <p class="pesudo"></p>
+                        <input class="form-control-input-value" type="text" value="" />
+                    </div>
+                    <div class="form-control-icon">
+                        <button class="btn btn-delete"></button>
+                    </div>
+                </li>
+            </ul>
+            <section class="filter">
+                <p class="todo-size">2 items left</p>
+                <ul class="filter">
+                    <li class="filter-item active">
+                        <a href="#/" data-type="all">all</a>
+                    </li>
+                    <li class="filter-item">
+                        <a href="#/active" data-type="active">active</a>
+                    </li>
+                    <li class="filter-item">
+                        <a href="#/completed" data-type="completed">completed</a>
                     </li>
                 </ul>
-                <section class="filter-button">
-                    <p class="todo-size">2 items left</p>
-                    <ul class="filter">
-                        <li class="filter-item active">
-                            <a href="#/" data-type="all">all</a>
-                        </li>
-                        <li class="filter-item">
-                            <a href="#/active" data-type="active">active</a>
-                        </li>
-                        <li class="filter-item">
-                            <a href="#/completed" data-type="completed"
-                                >completed</a
-                            >
-                        </li>
-                    </ul>
-                </section>
             </section>
-        </main>
-    </body>
+        </section>
+    </main>
+</body>
+
 </html>
