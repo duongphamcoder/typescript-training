@@ -21,7 +21,7 @@
     display: none;
 }
 
-.form-control .form-control:hover .form-control-icon:last-child {
+.form-control:hover .form-control-icon:last-child {
     display: block;
 }
 
