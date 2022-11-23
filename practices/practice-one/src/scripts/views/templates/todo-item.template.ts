@@ -1,11 +1,8 @@
 import { createElement } from '../../helpers/bind-dom.helper'
+import { TodoType } from '../../models/todo.model'
 
 interface Param {
-    data: {
-        id: number,
-        description: string,
-        isCompleted: boolean
-    },
+    data: TodoType;
     viewHandleCompletedTodo: Function,
     viewHandleUpdateTodo: Function,
     viewHandleDeletedTodo: Function,
