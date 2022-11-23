@@ -12,3 +12,4 @@ export const querySelector = (selector: string): HTMLElement => {
 export const querySelectorAll = (selector: string): NodeListOf<HTMLElement> => {
     return document.querySelectorAll(selector);
 }
+
