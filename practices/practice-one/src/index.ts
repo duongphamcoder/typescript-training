@@ -3,7 +3,6 @@ const todoFormView = new TodoFormView()
 
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', todoFormView.init)
-}
-else {
+} else {
     todoFormView.init()
 }
