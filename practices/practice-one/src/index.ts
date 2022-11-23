@@ -6,3 +6,4 @@ if (document.readyState === 'loading') {
 } else {
     todoFormView.init()
 }
+
