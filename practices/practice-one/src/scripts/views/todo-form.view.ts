@@ -16,8 +16,6 @@ export default class TodoFormView {
     private addEventForm() {
         this.formElement.addEventListener('submit', (e) => {
             e.preventDefault();
-            console.log(123);
-
         })
         this.checkAllElement.addEventListener('click', (e) => { })
     }
