@@ -26,3 +26,6 @@ class Todo {
         return this.isCompleted;
     }
 }
+
+
+export default Todo
