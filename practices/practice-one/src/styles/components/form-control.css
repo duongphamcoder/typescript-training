@@ -51,11 +51,11 @@
     display: none;
 }
 
-.form-control.form-control-input.edit .pesudo {
+.form-control .form-control-input.edit .pesudo {
     display: none;
 }
 
-.form-control.form-control-input.edit .form-control-input-value {
+.form-control .form-control-input.edit .form-control-input-value {
     display: block;
 }
 

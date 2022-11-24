@@ -12,6 +12,7 @@ export interface Param {
 export default (param: Param): HTMLLIElement => {
     const liElement = createElement('li') as HTMLLIElement;
     liElement.classList.add('form-control')
+    liElement.setAttribute('data-item', param.data.id + '')
     const html = ` 
         <div class="form-control-icon">
             <!--
@@ -23,20 +24,27 @@ export default (param: Param): HTMLLIElement => {
         <!--add edit class when you want to edit-->
         <div class="form-control-input">
             <p class="pesudo">${param.data.description}</p>
+        <form action="#" method="POST"> 
             <input
-                class="form-control-input-value"
-                type="text"
-                value="${param.data.description}"
-                data-update='${param.data.id}'
-            />
+            class="form-control-input-value"
+            type="text"
+            value="${param.data.description}"
+            data-update='${param.data.id}'
+        />
+        </form>
         </div>
         <div class="form-control-icon">
             <button class="btn btn-delete" data-deleted='${param.data.id}'></button>
         </div>`
-    const btnComplete = liElement.querySelector('.btn-checkbox');
-    const inputUpdate = liElement.querySelector('.form-control-input-value')
-    const btnDelete = liElement.querySelector('.btn-delete');
     liElement.innerHTML = html;
+    const btnComplete = liElement.querySelector('.btn-checkbox');
+    const inputUpdate = liElement.querySelector('form')
+    const btnDelete = liElement.querySelector('.btn-delete');
+
+    btnDelete.addEventListener('click', () => {
+        param.handleDeletedTodo(liElement)
+    })
+
     // <!-- add completed class when select button -->
     return liElement
 }

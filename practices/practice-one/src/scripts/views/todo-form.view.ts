@@ -55,6 +55,9 @@ export default class TodoFormView {
 
     private handleCompletedTodo(element) { }
 
-    private handleDeletedTodo(element) { }
+    private handleDeletedTodo(element) {
+        const data = element.getAttribute("data-item")
+        element.remove()
+    }
 
 }
