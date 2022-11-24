@@ -40,9 +40,16 @@ export default (param: Param): HTMLLIElement => {
     const btnComplete = liElement.querySelector('.btn-checkbox');
     const inputUpdate = liElement.querySelector('form')
     const btnDelete = liElement.querySelector('.btn-delete');
+    const pesudo = liElement.querySelector('.pesudo');
 
     btnDelete.addEventListener('click', () => {
         param.handleDeletedTodo(liElement)
+    })
+
+    btnComplete.addEventListener('click', () => {
+        btnComplete.classList.toggle('checked')
+        liElement.classList.toggle('completed')
+        param.handleCompletedTodo(liElement)
     })
 
     // <!-- add completed class when select button -->
