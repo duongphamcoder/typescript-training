@@ -1,11 +1,11 @@
 import { createElement } from '../../helpers/bind-dom.helper'
 import { TodoType } from '../../models/todo.model'
 
-interface Param {
+export interface Param {
     data: TodoType;
-    viewHandleCompletedTodo: Function,
-    viewHandleUpdateTodo: Function,
-    viewHandleDeletedTodo: Function,
+    handleCompletedTodo: Function,
+    handleUpdateTodo: Function,
+    handleDeletedTodo: Function,
 }
 
 
@@ -37,7 +37,6 @@ export default (param: Param): HTMLLIElement => {
     const inputUpdate = liElement.querySelector('.form-control-input-value')
     const btnDelete = liElement.querySelector('.btn-delete');
     liElement.innerHTML = html;
-
     // <!-- add completed class when select button -->
     return liElement
 }
