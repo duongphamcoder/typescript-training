@@ -22,6 +22,7 @@ export default class TodoFormView {
     }
 
     private addEventForm() {
+        const todos = querySelector('.form')
         this.formElement.addEventListener('submit', (e) => {
             e.preventDefault();
             const text = this.textElment.value
@@ -33,6 +34,7 @@ export default class TodoFormView {
                 }
                 this.handleAddTodo(data)
                 this.textElment.value = ''
+                todos.classList.add('not-empty')
             }
 
         })
@@ -51,7 +53,13 @@ export default class TodoFormView {
         this.todosElement.appendChild(todoItem)
     }
 
-    private handleUpdateTodo(element) { }
+    private handleUpdateTodo(element, value): Boolean {
+        if (value) {
+            element.textContent = value
+            return true
+        }
+        return false
+    }
 
     private handleCompletedTodo(element) { }
 

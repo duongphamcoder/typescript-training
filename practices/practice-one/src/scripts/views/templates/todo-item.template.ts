@@ -1,4 +1,4 @@
-import { createElement } from '../../helpers/bind-dom.helper'
+import { createElement, querySelector } from '../../helpers/bind-dom.helper'
 import { TodoType } from '../../models/todo.model'
 
 export interface Param {
@@ -37,8 +37,10 @@ export default (param: Param): HTMLLIElement => {
             <button class="btn btn-delete" data-deleted='${param.data.id}'></button>
         </div>`
     liElement.innerHTML = html;
+    const edit = liElement.querySelector('.form-control-input');
     const btnComplete = liElement.querySelector('.btn-checkbox');
     const inputUpdate = liElement.querySelector('form')
+    const textElemnt = inputUpdate.querySelector('input')
     const btnDelete = liElement.querySelector('.btn-delete');
     const pesudo = liElement.querySelector('.pesudo');
 
@@ -50,6 +52,17 @@ export default (param: Param): HTMLLIElement => {
         btnComplete.classList.toggle('checked')
         liElement.classList.toggle('completed')
         param.handleCompletedTodo(liElement)
+    })
+
+    pesudo.addEventListener('dblclick', () => {
+        edit.classList.add('edit')
+        textElemnt.focus()
+    })
+
+    inputUpdate.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const result = param.handleUpdateTodo(pesudo, textElemnt.value)
+        result && edit.classList.remove('edit')
     })
 
     // <!-- add completed class when select button -->
