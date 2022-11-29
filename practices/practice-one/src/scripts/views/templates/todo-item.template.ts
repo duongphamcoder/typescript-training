@@ -9,8 +9,9 @@ export interface Param {
 }
 
 export default (param: Param): HTMLLIElement => {
+    const completed = param.data.isCompleted ? 'completed' : 'temp';
     const liElement = createElement('li') as HTMLLIElement;
-    liElement.classList.add('form-control');
+    liElement.classList.add('form-control', `${completed}`);
     liElement.setAttribute('data-item', param.data.id + '');
     const html = ` 
         <div class="form-control-icon">
@@ -18,7 +19,9 @@ export default (param: Param): HTMLLIElement => {
                 - add checked class when selected
                 - also have to add the completed class when adding the checked class
             -->
-            <button class="btn btn-checkbox" data-completed='${param.data.id}'></button>
+            <button class="btn btn-checkbox ${
+                param.data.isCompleted && 'checked'
+            }" data-completed='${param.data.id}'></button>
         </div>
         <!--add edit class when you want to edit-->
         <div class="form-control-input">
@@ -33,7 +36,9 @@ export default (param: Param): HTMLLIElement => {
         </form>
         </div>
         <div class="form-control-icon">
-            <button class="btn btn-delete" data-deleted='${param.data.id}'></button>
+            <button class="btn btn-delete" data-deleted='${
+                param.data.id
+            }'></button>
         </div>`;
     liElement.innerHTML = html;
     const edit = liElement.querySelector('.form-control-input');

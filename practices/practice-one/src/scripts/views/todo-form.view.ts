@@ -10,6 +10,7 @@ export default class TodoFormView {
     private todosElement: HTMLUListElement;
     private textElment: HTMLInputElement;
     private todos: Array<TodoType>;
+    private todoSize: HTMLParagraphElement;
 
     constructor() {
         const todoLocals = JSON.parse(store('todos').get());
@@ -23,6 +24,7 @@ export default class TodoFormView {
             '.form-submit  form > input'
         ) as HTMLInputElement;
         this.formGroupElemnt = querySelector('.form');
+        this.todoSize = querySelector('.todo-size') as HTMLParagraphElement;
     }
 
     init() {
@@ -31,6 +33,7 @@ export default class TodoFormView {
     }
 
     private render() {
+        this.handleUpdateSizeTodo(this.todos.length);
         this.todos.forEach((todo) => {
             const param: Param = {
                 data: todo,
@@ -74,6 +77,7 @@ export default class TodoFormView {
         };
         const todoItem = todoItemTemplate(param);
         this.todosElement.appendChild(todoItem);
+        this.handleUpdateSizeTodo(this.todos.length);
     }
 
     private handleUpdateTodo(
@@ -91,15 +95,25 @@ export default class TodoFormView {
         return false;
     }
 
-    private handleCompletedTodo(element) {}
+    private handleCompletedTodo(element) {
+        const data = element.getAttribute('data-item');
+        const result = this.todos.filter((todo) => todo.id === +data)[0];
+        result.isCompleted = !result.isCompleted;
+        store('todos').save(this.todos);
+    }
 
     private handleDeletedTodo(element) {
         const data = element.getAttribute('data-item');
         this.todos = this.todos.filter((todo) => todo.id !== +data);
         store('todos').save(this.todos);
         element.remove();
+        this.handleUpdateSizeTodo(this.todos.length);
         if (!this.todos.length) {
             this.formGroupElemnt.classList.remove('not-empty');
         }
+    }
+
+    private handleUpdateSizeTodo(size: number) {
+        this.todoSize.textContent = `${size} items left`;
     }
 }
