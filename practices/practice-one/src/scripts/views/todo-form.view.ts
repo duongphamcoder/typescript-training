@@ -76,9 +76,16 @@ export default class TodoFormView {
         this.todosElement.appendChild(todoItem);
     }
 
-    private handleUpdateTodo(element, value): Boolean {
+    private handleUpdateTodo(
+        element: HTMLParagraphElement,
+        value: string,
+        id: number
+    ): Boolean {
         if (value) {
             element.textContent = value;
+            const data = this.todos.filter((todo) => todo.id === id)[0];
+            data.description = value;
+            store('todos').save(this.todos);
             return true;
         }
         return false;
