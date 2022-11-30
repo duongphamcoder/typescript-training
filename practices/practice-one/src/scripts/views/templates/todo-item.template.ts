@@ -1,11 +1,17 @@
 import { createElement, querySelector } from '../../helpers/bind-dom.helper'
 import { TodoType } from '../../models/todo.model'
 
+
+type HandleDeletedTodo = (element: HTMLLIElement) => void
+type HandleCompletedTodo = (element: HTMLLIElement) => void
+type HandleUpdateTodo = (element: HTMLParagraphElement, value: string) => Boolean
+
+
 export interface Param {
     data: TodoType;
-    handleCompletedTodo: Function,
-    handleUpdateTodo: Function,
-    handleDeletedTodo: Function,
+    handleCompletedTodo: HandleCompletedTodo,
+    handleUpdateTodo: HandleUpdateTodo,
+    handleDeletedTodo: HandleDeletedTodo,
 }
 
 
@@ -42,7 +48,7 @@ export default (param: Param): HTMLLIElement => {
     const inputUpdate = liElement.querySelector('form')
     const textElemnt = inputUpdate.querySelector('input')
     const btnDelete = liElement.querySelector('.btn-delete');
-    const pesudo = liElement.querySelector('.pesudo');
+    const pesudo = liElement.querySelector('.pesudo') as HTMLParagraphElement;
 
     btnDelete.addEventListener('click', () => {
         param.handleDeletedTodo(liElement)
