@@ -1,9 +1,11 @@
 import { querySelector, querySelectorAll } from '../helpers/bind-dom.helper';
-import store from '../helpers/store';
 import { TodoType } from '../models/todo.model';
+import TodoAction from '../constants/hash.constant';
 import todoItemTemplate, { Param } from './templates/todo-item.template';
+import TodoController from '../controllers/todo.controller';
 
 export default class TodoFormView {
+    private todoController: TodoController;
     private formElement: HTMLFormElement;
     private formGroupElemnt: HTMLElement;
     private checkAllElement: HTMLButtonElement;
@@ -14,7 +16,8 @@ export default class TodoFormView {
     private hash: string;
 
     constructor() {
-        const todoLocals = JSON.parse(store('todos').get());
+        this.todoController = new TodoController(this);
+        const todoLocals = [];
         this.todos = todoLocals || [];
         this.formElement = querySelector(
             '.form-submit form'
@@ -37,23 +40,13 @@ export default class TodoFormView {
     }
 
     private render() {
-        let datas = this.todos;
-        switch (this.hash) {
-            case '#/completed': {
-                datas = this.todos.filter((todo) => todo.isCompleted);
-                if (this.todos.length) {
-                    this.formGroupElemnt.classList.add('not-empty');
-                }
-                break;
-            }
-            case '#/active': {
-                datas = this.todos.filter((todo) => !todo.isCompleted);
-            }
-            default: {
-                this.formGroupElemnt.classList.add('not-empty');
-            }
+        let datas = this.todoController.getTodos(this.hash);
+        if (this.hash === TodoAction.COMPLETED && datas.length > 0) {
+            this.formGroupElemnt.classList.add('not-empty')
         }
-        this.handleUpdateSizeTodo(this.hash);
+        else if (datas.length > 0) {
+            this.formGroupElemnt.classList.add('not-empty')
+        }
         this.todosElement.innerHTML = '';
         datas.forEach((todo) => {
             const param: Param = {
@@ -65,26 +58,32 @@ export default class TodoFormView {
             const todoItem = todoItemTemplate(param);
             this.todosElement.appendChild(todoItem);
         });
+        this.handleUpdateSizeTodo(this.hash);
     }
 
     private addEventForm() {
         this.formElement.addEventListener('submit', (e) => {
             e.preventDefault();
-            let count = this.todos.length;
             const text = this.textElment.value.trim();
-            if (text) {
-                const data: TodoType = {
-                    id: count,
-                    description: text,
-                    isCompleted: false,
-                };
-                this.handleAddTodo(data);
-                this.textElment.value = '';
-                this.formGroupElemnt.classList.add('not-empty');
-            }
+            this.todoController.handleAddTodo(text)
         });
-        this.checkAllElement.addEventListener('click', (e) => {});
+        this.checkAllElement.addEventListener('click', (e) => { });
     }
+
+    /**
+   * - Add a new job to do
+   * @param data
+   */
+    handleAddTodo(data: Param) {
+        const todoItem = todoItemTemplate(data);
+        this.handleUpdateSizeTodo(this.hash);
+        if (this.hash !== '#/completed') {
+            this.todosElement.appendChild(todoItem);
+        }
+        this.textElment.value = '';
+        this.formGroupElemnt.classList.add('not-empty');
+    }
+
 
     /**
      * Add events for filter buttons
@@ -103,8 +102,8 @@ export default class TodoFormView {
                 active.classList.remove('active');
                 filter.parentElement.classList.add('active');
                 this.hash = option[type];
-                this.handleUpdateSizeTodo(option[type]);
                 this.render();
+                this.handleUpdateSizeTodo(option[type]);
             });
         });
     }
@@ -115,13 +114,13 @@ export default class TodoFormView {
      */
     private activeFilter(hash: string) {
         switch (hash) {
-            case '#/active': {
+            case TodoAction.ACTIVE: {
                 const active = querySelector('[data-type="active"]');
                 active.parentElement.classList.add('active');
                 break;
             }
 
-            case '#/completed': {
+            case TodoAction.COMPLETED: {
                 const active = querySelector('[data-type="completed"]');
                 active.parentElement.classList.add('active');
                 break;
@@ -135,25 +134,6 @@ export default class TodoFormView {
         }
     }
 
-    /**
-     * - Add a new job to do
-     * @param data
-     */
-    private handleAddTodo(data: TodoType) {
-        this.todos.push(data);
-        localStorage.setItem('todos', JSON.stringify(this.todos));
-        const param: Param = {
-            data,
-            handleCompletedTodo: this.handleCompletedTodo.bind(this),
-            handleDeletedTodo: this.handleDeletedTodo.bind(this),
-            handleUpdateTodo: this.handleUpdateTodo.bind(this),
-        };
-        const todoItem = todoItemTemplate(param);
-        this.handleUpdateSizeTodo(this.hash);
-        if (this.hash !== '#/completed') {
-            this.todosElement.appendChild(todoItem);
-        }
-    }
 
     /**
      * - Update content of to-dos
@@ -162,18 +142,18 @@ export default class TodoFormView {
      * @param id
      * @returns { Boolean }
      */
-    private handleUpdateTodo(
+    handleUpdateTodo(
         element: HTMLParagraphElement,
         value: string,
         id: number
     ): Boolean {
-        if (value) {
-            element.textContent = value;
-            const data = this.todos.filter((todo) => todo.id === id)[0];
-            data.description = value;
-            store('todos').save(this.todos);
-            return true;
-        }
+        // if (value) {
+        //     element.textContent = value;
+        //     const data = this.todos.filter((todo) => todo.id === id)[0];
+        //     data.description = value;
+        //     store('todos').save(this.todos);
+        //     return true;
+        // }
         return false;
     }
 
@@ -181,14 +161,11 @@ export default class TodoFormView {
      * - Select a completed to-do
      * @param element
      */
-    private handleCompletedTodo(element: HTMLLIElement) {
+    handleCompletedTodo(element: HTMLLIElement) {
         const data = element.getAttribute('data-item');
-        const result = this.todos.filter((todo) => todo.id === +data)[0];
-        result.isCompleted = !result.isCompleted;
-        this.handleUpdateSizeTodo(this.hash);
-        store('todos').save(this.todos);
+        this.todoController.handleCompletedTodo(parseInt(data))
         if (this.hash === '#/completed' || this.hash === '#/active') {
-            this.render();
+            element.remove()
         }
     }
 
@@ -196,14 +173,17 @@ export default class TodoFormView {
      * - Delete a to-do
      * @param  element
      */
-    private handleDeletedTodo(element: HTMLLIElement) {
+    handleDeletedTodo(element: HTMLLIElement) {
+        console.log(this);
         const data = element.getAttribute('data-item');
-        this.todos = this.todos.filter((todo) => todo.id !== +data);
-        store('todos').save(this.todos);
-        element.remove();
-        this.handleUpdateSizeTodo(this.hash);
-        if (!this.todos.length) {
-            this.formGroupElemnt.classList.remove('not-empty');
+        const confirmValue = confirm("Are you sure?")
+        if (confirmValue) {
+            const { dataLength } = this.todoController.handleDeletedTodo(+data)
+            element.remove();
+            this.handleUpdateSizeTodo(this.hash);
+            if (!dataLength) {
+                this.formGroupElemnt.classList.remove('not-empty');
+            }
         }
     }
 
@@ -212,21 +192,23 @@ export default class TodoFormView {
      * @param  hash
      */
     private handleUpdateSizeTodo(hash: string) {
+        const completed = querySelectorAll('.completed').length
+        const active = querySelectorAll('.todos .form-control').length
+        let size = 0;
         switch (hash) {
             case '#/completed': {
-                const size = this.todos.filter(
-                    (todo) => todo.isCompleted
-                ).length;
-                this.todoSize.textContent = `${size} items left`;
+                size = completed;
                 break;
             }
-
+            case TodoAction.ACTIVE: {
+                size = active;
+            }
             default: {
-                const size = this.todos.filter(
-                    (todo) => !todo.isCompleted
-                ).length;
-                this.todoSize.textContent = `${size} items left`;
+                size = active - completed;
             }
         }
+        console.log(size);
+
+        this.todoSize.textContent = `${size} ${size > 1 ? "items" : 'item'} left`;
     }
 }

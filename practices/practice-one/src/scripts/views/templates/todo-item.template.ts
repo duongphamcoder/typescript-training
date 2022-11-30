@@ -1,11 +1,16 @@
 import { createElement, querySelector } from '../../helpers/bind-dom.helper';
 import { TodoType } from '../../models/todo.model';
 
+
+type HandleDeletedTodo = (element: HTMLLIElement) => void
+type HandleCompletedTodo = (element: HTMLLIElement) => void
+type HandleUpdateTodo = (element: HTMLParagraphElement, value: string, data: number) => Boolean
+
 export interface Param {
     data: TodoType;
-    handleCompletedTodo: Function;
-    handleUpdateTodo: Function;
-    handleDeletedTodo: Function;
+    handleCompletedTodo: HandleCompletedTodo,
+    handleUpdateTodo: HandleUpdateTodo,
+    handleDeletedTodo: HandleDeletedTodo,
 }
 
 export default (param: Param): HTMLLIElement => {
@@ -19,9 +24,8 @@ export default (param: Param): HTMLLIElement => {
                 - add checked class when selected
                 - also have to add the completed class when adding the checked class
             -->
-            <button class="btn btn-checkbox ${
-                param.data.isCompleted && 'checked'
-            }" data-completed='${param.data.id}'></button>
+            <button class="btn btn-checkbox ${param.data.isCompleted && 'checked'
+        }" data-completed='${param.data.id}'></button>
         </div>
         <!--add edit class when you want to edit-->
         <div class="form-control-input">
@@ -36,9 +40,8 @@ export default (param: Param): HTMLLIElement => {
         </form>
         </div>
         <div class="form-control-icon">
-            <button class="btn btn-delete" data-deleted='${
-                param.data.id
-            }'></button>
+            <button class="btn btn-delete" data-deleted='${param.data.id
+        }'></button>
         </div>`;
     liElement.innerHTML = html;
     const edit = liElement.querySelector('.form-control-input');
@@ -46,7 +49,7 @@ export default (param: Param): HTMLLIElement => {
     const inputUpdate = liElement.querySelector('form');
     const textElemnt = inputUpdate.querySelector('input');
     const btnDelete = liElement.querySelector('.btn-delete');
-    const pesudo = liElement.querySelector('.pesudo');
+    const pesudo = liElement.querySelector('.pesudo') as HTMLParagraphElement;
 
     btnDelete.addEventListener('click', () => {
         param.handleDeletedTodo(liElement);
