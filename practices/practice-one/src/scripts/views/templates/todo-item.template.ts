@@ -6,14 +6,12 @@ type HandleDeletedTodo = (element: HTMLLIElement) => void
 type HandleCompletedTodo = (element: HTMLLIElement) => void
 type HandleUpdateTodo = (element: HTMLParagraphElement, value: string) => Boolean
 
-
 export interface Param {
     data: TodoType;
     handleCompletedTodo: HandleCompletedTodo,
     handleUpdateTodo: HandleUpdateTodo,
     handleDeletedTodo: HandleDeletedTodo,
 }
-
 
 export default (param: Param): HTMLLIElement => {
     const liElement = createElement('li') as HTMLLIElement;
