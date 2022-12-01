@@ -1,68 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="./styles/main.css" />
-        <link rel="icon" href="./assets/images/logo.png" />
-        <title>To-do</title>
-    </head>
 
-    <body>
-        <header class="header">
-            <section class="header-wrapper container">
-                <h1 class="heading">Todo list with TypeScript</h1>
-            </section>
-        </header>
-        <main class="form-wrapper container">
-            <!--add class not-empty when todo list has data-->
-            <section class="form">
-                <section class="form-submit">
-                    <div class="form-control">
-                        <!--add the checked class when clicking the button-->
-                        <div class="form-control-icon">
-                            <button class="btn btn-tick"></button>
-                        </div>
-                        <div class="form-control-input">
-                            <form action="#" method="POST">
-                                <input
-                                    type="text"
-                                    placeholder="What will you focus on today?"
-                                />
-                            </form>
-                        </div>
-                    </div>
-                </section>
-                <ul class="todos"></ul>
-                <section class="filter">
-                    <p class="todo-size">2 items left</p>
-                    <ul class="filter-button">
-                        <li class="filter-item">
-                            <a href="#/" data-type="all">all</a>
-                        </li>
-                        <li class="filter-item">
-                            <a href="#/active" data-type="active">active</a>
-                        </li>
-                        <li class="filter-item">
-                            <a href="#/completed" data-type="completed"
-                                >completed</a
-                            >
-                        </li>
-                    </ul>
-                </section>
-            </section>
-        </main>
-        <!--Add class 'hide' on successful execution of an action-->
-        <section class="notification">
-            <div class="form-control pesudo">
-                <p class="notification-message">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Suscipit, natus!
-                </p>
-                <button class="btn btn-delete"></button>
-            </div>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/main.css" />
+    <link rel="icon" href="./assets/images/logo.png" />
+    <title>To-do</title>
+</head>
+
+<body>
+    <header class="header">
+        <section class="header-wrapper container">
+            <h1 class="heading">Todo list with TypeScript</h1>
         </section>
-        <script src="./index.ts" type="module"></script>
-    </body>
+    </header>
+    <main class="form-wrapper container">
+        <!--add class not-empty when todo list has data-->
+        <section class="form">
+            <section class="form-submit">
+                <div class="form-control">
+                    <!--add the checked class when clicking the button-->
+                    <div class="form-control-icon">
+                        <button class="btn btn-tick"></button>
+                    </div>
+                    <div class="form-control-input">
+                        <form action="#" method="POST">
+                            <input type="text" placeholder="What will you focus on today?" />
+                        </form>
+                    </div>
+                </div>
+            </section>
+            <ul class="todos">
+            </ul>
+            <section class="filter">
+                <p class="todo-size">2 items left</p>
+                <ul class="filter-button">
+                    <li class="filter-item">
+                        <a href="#/" data-type="all">all</a>
+                    </li>
+                    <li class="filter-item">
+                        <a href="#/active" data-type="active">active</a>
+                    </li>
+                    <li class="filter-item">
+                        <a href="#/completed" data-type="completed">completed</a>
+                    </li>
+                </ul>
+            </section>
+        </section>
+    </main>
+    <script src="./index.ts" type="module"></script>
+</body>
+
 </html>

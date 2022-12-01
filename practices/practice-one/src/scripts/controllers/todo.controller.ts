@@ -35,10 +35,14 @@ export default class TodoController {
 
     handleAddTodo(text: string) {
         if (Boolean(text)) {
+            const date = new Date();
+            const currentDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
             const data: TodoType = {
                 id: this.todos.length,
                 description: text,
                 isCompleted: false,
+                createdAt: currentDate,
+                updatedAt: currentDate
             }
             const param: Param = {
                 data,
@@ -46,23 +50,34 @@ export default class TodoController {
                 handleDeletedTodo: this.todoView.handleDeletedTodo.bind(this.todoView),
                 handleUpdateTodo: this.todoView.handleUpdateTodo.bind(this.todoView),
             };
-            this.todos.push(data)
-            store('todos').save(this.todos)
-            this.todoView.handleAddTodo(param)
+            this.todos.push(data);
+            store('todos').save(this.todos);
+            this.todoView.handleAddTodo(param);
         }
     }
 
-    handleUpdateTodo() { }
+    handleUpdateTodo(id: number, value: string): boolean {
+        if (Boolean(value)) {
+            const date = new Date();
+            const currentDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
+            const data = this.todos.filter((todo) => todo.id === id)[0];
+            data.description = value;
+            data.updatedAt = currentDate;
+            store('todos').save(this.todos);
+            return true;
+        }
+        return false;
+    }
 
     handleCompletedTodo(id: number) {
         const data = this.todos.filter(todo => todo.id === id)[0];
-        data.isCompleted = !data.isCompleted
-        store('todos').save(this.todos)
+        data.isCompleted = !data.isCompleted;
+        store('todos').save(this.todos);
     }
 
     handleDeletedTodo(id: number): Delete {
         this.todos = this.todos.filter(todo => todo.id !== id)
-        store('todos').save(this.todos)
+        store('todos').save(this.todos);;
         return {
             type: TYPE.SUCCESS,
             dataLength: this.todos.length,

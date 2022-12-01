@@ -3,6 +3,8 @@ import { TodoType } from '../models/todo.model';
 import TodoAction from '../constants/hash.constant';
 import todoItemTemplate, { Param } from './templates/todo-item.template';
 import TodoController from '../controllers/todo.controller';
+import { showNotifications } from '../helpers/notify'
+import { NotifyMessage } from '../constants/notify-message.constant'
 
 export default class TodoFormView {
     private todoController: TodoController;
@@ -76,12 +78,13 @@ export default class TodoFormView {
    */
     handleAddTodo(data: Param) {
         const todoItem = todoItemTemplate(data);
-        this.handleUpdateSizeTodo(this.hash);
         if (this.hash !== '#/completed') {
             this.todosElement.appendChild(todoItem);
+            this.handleUpdateSizeTodo(this.hash);
         }
         this.textElment.value = '';
         this.formGroupElemnt.classList.add('not-empty');
+        showNotifications(NotifyMessage.CREATE)
     }
 
 
@@ -91,8 +94,8 @@ export default class TodoFormView {
     private addEventFilterButton() {
         const option = {
             all: '/',
-            active: '#/active',
-            completed: '#/completed',
+            active: TodoAction.ACTIVE,
+            completed: TodoAction.COMPLETED,
         };
         const filters = querySelectorAll('.filter-item a');
         filters.forEach((filter) => {
@@ -146,15 +149,13 @@ export default class TodoFormView {
         element: HTMLParagraphElement,
         value: string,
         id: number
-    ): Boolean {
-        // if (value) {
-        //     element.textContent = value;
-        //     const data = this.todos.filter((todo) => todo.id === id)[0];
-        //     data.description = value;
-        //     store('todos').save(this.todos);
-        //     return true;
-        // }
-        return false;
+    ): boolean {
+        const result = this.todoController.handleUpdateTodo(id, value);
+        if (result) {
+            element.textContent = value;
+            showNotifications(NotifyMessage.UPDATE)
+        }
+        return result;
     }
 
     /**
@@ -167,6 +168,7 @@ export default class TodoFormView {
         if (this.hash === '#/completed' || this.hash === '#/active') {
             element.remove()
         }
+        this.handleUpdateSizeTodo(this.hash)
     }
 
     /**
@@ -174,12 +176,12 @@ export default class TodoFormView {
      * @param  element
      */
     handleDeletedTodo(element: HTMLLIElement) {
-        console.log(this);
         const data = element.getAttribute('data-item');
         const confirmValue = confirm("Are you sure?")
         if (confirmValue) {
             const { dataLength } = this.todoController.handleDeletedTodo(+data)
             element.remove();
+            showNotifications(NotifyMessage.DELETE)
             this.handleUpdateSizeTodo(this.hash);
             if (!dataLength) {
                 this.formGroupElemnt.classList.remove('not-empty');
@@ -196,7 +198,7 @@ export default class TodoFormView {
         const active = querySelectorAll('.todos .form-control').length
         let size = 0;
         switch (hash) {
-            case '#/completed': {
+            case TodoAction.COMPLETED: {
                 size = completed;
                 break;
             }
@@ -207,8 +209,6 @@ export default class TodoFormView {
                 size = active - completed;
             }
         }
-        console.log(size);
-
         this.todoSize.textContent = `${size} ${size > 1 ? "items" : 'item'} left`;
     }
 }

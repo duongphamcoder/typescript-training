@@ -29,7 +29,13 @@ export default (param: Param): HTMLLIElement => {
         </div>
         <!--add edit class when you want to edit-->
         <div class="form-control-input">
-            <p class="pesudo">${param.data.description}</p>
+        <div class="pesudo">
+        <p class="pesudo-value">${param.data.description}</p>
+        <div class="pesudo-time">
+            <p class="pesudo-time-create">CreatedAt: ${param.data.createdAt}</p>
+            <p class="pesudo-time-update">UpdatedAt: ${param.data.updatedAt}</p>
+        </div>
+        </div>
         <form action="#" method="POST"> 
             <input
             class="form-control-input-value"
@@ -49,7 +55,7 @@ export default (param: Param): HTMLLIElement => {
     const inputUpdate = liElement.querySelector('form');
     const textElemnt = inputUpdate.querySelector('input');
     const btnDelete = liElement.querySelector('.btn-delete');
-    const pesudo = liElement.querySelector('.pesudo') as HTMLParagraphElement;
+    const pesudo = liElement.querySelector('.pesudo .pesudo-value') as HTMLParagraphElement;
 
     btnDelete.addEventListener('click', () => {
         param.handleDeletedTodo(liElement);

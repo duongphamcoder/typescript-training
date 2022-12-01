@@ -18,11 +18,13 @@
 }
 
 .form-control .form-control-icon:last-child {
-    display: none;
+    /* display: none; */
+    visibility: hidden;
 }
 
 .form-control:hover .form-control-icon:last-child {
-    display: block;
+    /* display: block; */
+    visibility: visible;
 }
 
 .form-control .form-control-input {
@@ -33,6 +35,10 @@
 
 .form-control .form-control-input form {
     width: 100%;
+}
+
+.todos .form-control form {
+    display: none;
 }
 
 .form-control .form-control-input input,
@@ -46,6 +52,23 @@
     font-size: 16px;
     background-color: transparent;
     line-height: 24px;
+    display: flex;
+}
+
+.form-control .form-control-input .pesudo {
+    cursor: pointer;
+}
+
+.pesudo-value {
+    flex: 1;
+}
+
+.pesudo-time {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    gap: 5px;
 }
 
 .form-control .form-control-input .pesudo {
@@ -53,14 +76,13 @@
 }
 
 .form-control .form-control-input .form-control-input-value {
-    display: none;
 }
 
 .form-control .form-control-input.edit .pesudo {
     display: none;
 }
 
-.form-control .form-control-input.edit .form-control-input-value {
+.form-control .form-control-input.edit form {
     display: block;
 }
 
