@@ -11,4 +11,3 @@ enum NotifyMessage {
 }
 
 export { TypeNotify, NotifyMessage }
-

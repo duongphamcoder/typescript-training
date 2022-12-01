@@ -13,14 +13,11 @@ export default class TodoFormView {
     private checkAllElement: HTMLButtonElement;
     private todosElement: HTMLUListElement;
     private textElment: HTMLInputElement;
-    private todos: Array<TodoType>;
     private todoSize: HTMLParagraphElement;
     private hash: string;
 
     constructor() {
         this.todoController = new TodoController(this);
-        const todoLocals = [];
-        this.todos = todoLocals || [];
         this.formElement = querySelector(
             '.form-submit form'
         ) as HTMLFormElement;
@@ -45,8 +42,7 @@ export default class TodoFormView {
         let datas = this.todoController.getTodos(this.hash);
         if (this.hash === TodoStates.COMPLETED && datas.length > 0) {
             this.formGroupElemnt.classList.add('not-empty')
-        }
-        else if (datas.length > 0) {
+        } else if (datas.length > 0) {
             this.formGroupElemnt.classList.add('not-empty')
         }
         this.todosElement.innerHTML = '';
@@ -86,7 +82,6 @@ export default class TodoFormView {
         this.formGroupElemnt.classList.add('not-empty');
         showNotifications(NotifyMessage.CREATE)
     }
-
 
     /**
      * Add events for filter buttons
@@ -136,7 +131,6 @@ export default class TodoFormView {
             }
         }
     }
-
 
     /**
      * - Update content of to-dos

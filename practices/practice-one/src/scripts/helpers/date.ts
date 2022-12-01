@@ -4,5 +4,4 @@ const getCurrentDate = (): string => {
     return currentDate
 }
 
-
 export { getCurrentDate }

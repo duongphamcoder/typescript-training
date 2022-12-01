@@ -6,4 +6,3 @@ enum TodoStates {
 }
 
 export default TodoStates
-
