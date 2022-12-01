@@ -84,7 +84,6 @@ export default (param: Param): HTMLLIElement => {
         if (result.isUpdate) {
             edit.classList.remove('edit');
             timeUpdate.textContent = `UpdatedAt: ${result.time}`
-
         }
     });
 
