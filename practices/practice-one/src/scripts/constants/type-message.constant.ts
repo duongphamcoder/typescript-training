@@ -4,3 +4,4 @@ enum TYPE {
 }
 
 export default TYPE
+

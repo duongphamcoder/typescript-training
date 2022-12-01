@@ -10,4 +10,5 @@ enum NotifyMessage {
     UPDATE = 'Update to-do successful',
 }
 
-export { TypeNotify, NotifyMessage } 
+export { TypeNotify, NotifyMessage }
+
