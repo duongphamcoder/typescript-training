@@ -1,6 +1,6 @@
 import { querySelector, querySelectorAll } from '../helpers/bind-dom.helper';
 import { TodoType } from '../models/todo.model';
-import TodoAction from '../constants/hash.constant';
+import TodoStates from '../constants/hash.constant';
 import todoItemTemplate, { Param } from './templates/todo-item.template';
 import TodoController, { Update } from '../controllers/todo.controller';
 import { showNotifications } from '../helpers/notify'
@@ -43,7 +43,7 @@ export default class TodoFormView {
 
     private render() {
         let datas = this.todoController.getTodos(this.hash);
-        if (this.hash === TodoAction.COMPLETED && datas.length > 0) {
+        if (this.hash === TodoStates.COMPLETED && datas.length > 0) {
             this.formGroupElemnt.classList.add('not-empty')
         }
         else if (datas.length > 0) {
@@ -94,8 +94,8 @@ export default class TodoFormView {
     private addEventFilterButton() {
         const option = {
             all: '/',
-            active: TodoAction.ACTIVE,
-            completed: TodoAction.COMPLETED,
+            active: TodoStates.ACTIVE,
+            completed: TodoStates.COMPLETED,
         };
         const filters = querySelectorAll('.filter-item a');
         filters.forEach((filter) => {
@@ -117,13 +117,13 @@ export default class TodoFormView {
      */
     private activeFilter(hash: string) {
         switch (hash) {
-            case TodoAction.ACTIVE: {
+            case TodoStates.ACTIVE: {
                 const active = querySelector('[data-type="active"]');
                 active.parentElement.classList.add('active');
                 break;
             }
 
-            case TodoAction.COMPLETED: {
+            case TodoStates.COMPLETED: {
                 const active = querySelector('[data-type="completed"]');
                 active.parentElement.classList.add('active');
                 break;
@@ -198,11 +198,11 @@ export default class TodoFormView {
         const active = querySelectorAll('.todos .form-control').length
         let size = 0;
         switch (hash) {
-            case TodoAction.COMPLETED: {
+            case TodoStates.COMPLETED: {
                 size = completed;
                 break;
             }
-            case TodoAction.ACTIVE: {
+            case TodoStates.ACTIVE: {
                 size = active;
             }
             default: {

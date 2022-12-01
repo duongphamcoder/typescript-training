@@ -3,7 +3,8 @@ import { Param } from '../views/templates/todo-item.template'
 import store from '../helpers/store';
 import TYPE from '../constants/type-message.constant';
 import TodoFormView from '../views/todo-form.view';
-import TodoAction from '../constants/hash.constant';
+import TodoStates from '../constants/hash.constant';
+import { getCurrentDate } from '../helpers/date';
 
 type Delete = {
     type: string;
@@ -26,10 +27,10 @@ export default class TodoController {
 
     getTodos(hash: string): Array<TodoType> {
         switch (hash) {
-            case TodoAction.COMPLETED: {
+            case TodoStates.COMPLETED: {
                 return this.todos.filter((todo) => todo.isCompleted);
             }
-            case TodoAction.ACTIVE: {
+            case TodoStates.ACTIVE: {
                 return this.todos.filter((todo) => !todo.isCompleted);
             }
             default: {
@@ -38,13 +39,12 @@ export default class TodoController {
         return this.todos;
     }
 
-    handleAddTodo(text: string) {
-        if (Boolean(text)) {
-            const date = new Date();
-            const currentDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+    handleAddTodo(value: string) {
+        if (Boolean(value)) {
+            const currentDate = getCurrentDate()
             const data: TodoType = {
                 id: this.todos.length,
-                title: text,
+                title: value,
                 isCompleted: false,
                 createdAt: currentDate,
                 updatedAt: currentDate
@@ -63,8 +63,7 @@ export default class TodoController {
 
     handleUpdateTodo(id: number, value: string): Update {
         if (Boolean(value)) {
-            const date = new Date();
-            const currentDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+            const currentDate = getCurrentDate()
             const data = this.todos.filter((todo) => todo.id === id)[0];
             data.title = value;
             data.updatedAt = currentDate;

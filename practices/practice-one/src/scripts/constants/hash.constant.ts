@@ -1,10 +1,9 @@
-enum TodoAction {
+enum TodoStates {
     ALL = '#/',
     ACTIVE = '#/active',
     COMPLETED = '#/completed',
     DEFAULT = '/'
 }
 
-
-export default TodoAction
+export default TodoStates
 
