@@ -2,7 +2,7 @@ import { querySelector, querySelectorAll } from '../helpers/bind-dom.helper';
 import { TodoType } from '../models/todo.model';
 import TodoAction from '../constants/hash.constant';
 import todoItemTemplate, { Param } from './templates/todo-item.template';
-import TodoController from '../controllers/todo.controller';
+import TodoController, { Update } from '../controllers/todo.controller';
 import { showNotifications } from '../helpers/notify'
 import { NotifyMessage } from '../constants/notify-message.constant'
 
@@ -149,9 +149,9 @@ export default class TodoFormView {
         element: HTMLParagraphElement,
         value: string,
         id: number
-    ): boolean {
+    ): Update {
         const result = this.todoController.handleUpdateTodo(id, value);
-        if (result) {
+        if (result.isUpdate) {
             element.textContent = value;
             showNotifications(NotifyMessage.UPDATE)
         }

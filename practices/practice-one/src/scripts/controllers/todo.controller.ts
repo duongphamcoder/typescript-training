@@ -10,6 +10,11 @@ type Delete = {
     dataLength: number;
 }
 
+export type Update = {
+    isUpdate: boolean;
+    time: string;
+}
+
 export default class TodoController {
     private todos: Array<TodoType>;
     private todoView: TodoFormView;
@@ -36,10 +41,10 @@ export default class TodoController {
     handleAddTodo(text: string) {
         if (Boolean(text)) {
             const date = new Date();
-            const currentDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
+            const currentDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
             const data: TodoType = {
                 id: this.todos.length,
-                description: text,
+                title: text,
                 isCompleted: false,
                 createdAt: currentDate,
                 updatedAt: currentDate
@@ -56,17 +61,23 @@ export default class TodoController {
         }
     }
 
-    handleUpdateTodo(id: number, value: string): boolean {
+    handleUpdateTodo(id: number, value: string): Update {
         if (Boolean(value)) {
             const date = new Date();
-            const currentDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
+            const currentDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
             const data = this.todos.filter((todo) => todo.id === id)[0];
-            data.description = value;
+            data.title = value;
             data.updatedAt = currentDate;
             store('todos').save(this.todos);
-            return true;
+            return {
+                isUpdate: true,
+                time: currentDate
+            };
         }
-        return false;
+        return {
+            isUpdate: false,
+            time: ""
+        };
     }
 
     handleCompletedTodo(id: number) {

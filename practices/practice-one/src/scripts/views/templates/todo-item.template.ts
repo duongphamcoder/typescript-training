@@ -1,10 +1,11 @@
+import { Update } from '../../controllers/todo.controller';
 import { createElement, querySelector } from '../../helpers/bind-dom.helper';
 import { TodoType } from '../../models/todo.model';
 
 
 type HandleDeletedTodo = (element: HTMLLIElement) => void
 type HandleCompletedTodo = (element: HTMLLIElement) => void
-type HandleUpdateTodo = (element: HTMLParagraphElement, value: string, data: number) => Boolean
+type HandleUpdateTodo = (element: HTMLParagraphElement, value: string, data: number) => Update
 
 export interface Param {
     data: TodoType;
@@ -30,7 +31,7 @@ export default (param: Param): HTMLLIElement => {
         <!--add edit class when you want to edit-->
         <div class="form-control-input">
         <div class="pesudo">
-        <p class="pesudo-value">${param.data.description}</p>
+        <p class="pesudo-value">${param.data.title}</p>
         <div class="pesudo-time">
             <p class="pesudo-time-create">CreatedAt: ${param.data.createdAt}</p>
             <p class="pesudo-time-update">UpdatedAt: ${param.data.updatedAt}</p>
@@ -40,7 +41,7 @@ export default (param: Param): HTMLLIElement => {
             <input
             class="form-control-input-value"
             type="text"
-            value="${param.data.description}"
+            value="${param.data.title}"
             data-update='${param.data.id}'
         />
         </form>
@@ -51,11 +52,12 @@ export default (param: Param): HTMLLIElement => {
         </div>`;
     liElement.innerHTML = html;
     const edit = liElement.querySelector('.form-control-input');
-    const btnComplete = liElement.querySelector('.btn-checkbox');
-    const inputUpdate = liElement.querySelector('form');
-    const textElemnt = inputUpdate.querySelector('input');
-    const btnDelete = liElement.querySelector('.btn-delete');
-    const pesudo = liElement.querySelector('.pesudo .pesudo-value') as HTMLParagraphElement;
+    const btnComplete: HTMLButtonElement = liElement.querySelector('.btn-checkbox');
+    const inputUpdate: HTMLFormElement = liElement.querySelector('form');
+    const textElemnt: HTMLInputElement = inputUpdate.querySelector('input');
+    const btnDelete: HTMLButtonElement = liElement.querySelector('.btn-delete');
+    const pesudo: HTMLParagraphElement = liElement.querySelector('.pesudo .pesudo-value') as HTMLParagraphElement;
+    const timeUpdate: HTMLParagraphElement = liElement.querySelector('.pesudo-time-update') as HTMLParagraphElement;
 
     btnDelete.addEventListener('click', () => {
         param.handleDeletedTodo(liElement);
@@ -74,12 +76,16 @@ export default (param: Param): HTMLLIElement => {
 
     inputUpdate.addEventListener('submit', (e) => {
         e.preventDefault();
-        const result = param.handleUpdateTodo(
+        const result: Update = param.handleUpdateTodo(
             pesudo,
             textElemnt.value,
             +liElement.getAttribute('data-item')
         );
-        result && edit.classList.remove('edit');
+        if (result.isUpdate) {
+            edit.classList.remove('edit');
+            timeUpdate.textContent = `UpdatedAt: ${result.time}`
+
+        }
     });
 
     // <!-- add completed class when select button -->
