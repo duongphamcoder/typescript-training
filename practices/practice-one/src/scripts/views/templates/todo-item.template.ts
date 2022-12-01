@@ -2,7 +2,6 @@ import { Update } from '../../controllers/todo.controller';
 import { createElement, querySelector } from '../../helpers/bind-dom.helper';
 import { TodoType } from '../../models/todo.model';
 
-
 type HandleDeletedTodo = (element: HTMLLIElement) => void
 type HandleCompletedTodo = (element: HTMLLIElement) => void
 type HandleUpdateTodo = (element: HTMLParagraphElement, value: string, data: number) => Update
