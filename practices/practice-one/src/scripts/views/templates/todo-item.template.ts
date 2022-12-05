@@ -17,7 +17,7 @@ export default (param: Param): HTMLLIElement => {
     const completed = param.data.isCompleted ? 'completed' : 'temp';
     const liElement = createElement('li') as HTMLLIElement;
     liElement.classList.add('form-control', `${completed}`);
-    liElement.setAttribute('data-item', param.data.id + '');
+    liElement.setAttribute('data-item', `${param.data.id}`);
     const html = ` 
         <div class="form-control-icon">
             <!--
@@ -82,7 +82,7 @@ export default (param: Param): HTMLLIElement => {
         );
         if (result.isUpdate) {
             edit.classList.remove('edit');
-            timeUpdate.textContent = `UpdatedAt: ${result.time}`
+            timeUpdate.textContent = `UpdatedAt: ${result.time}`;
         }
     });
 

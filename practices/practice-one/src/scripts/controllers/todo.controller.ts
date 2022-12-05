@@ -17,7 +17,7 @@ export type Update = {
 }
 
 export default class TodoController {
-    private todos: Array<TodoType>;
+    private todos: TodoType[];
     private todoView: TodoFormView;
     constructor(TodoFormView) {
         const todoLocals = JSON.parse(store('todos').get());
@@ -25,7 +25,7 @@ export default class TodoController {
         this.todoView = TodoFormView
     }
 
-    getTodos(hash: string): Array<TodoType> {
+    getTodos(hash: string): TodoType[] {
         switch (hash) {
             case TodoStates.COMPLETED: {
                 return this.todos.filter((todo) => todo.isCompleted);
@@ -34,9 +34,9 @@ export default class TodoController {
                 return this.todos.filter((todo) => !todo.isCompleted);
             }
             default: {
+                return this.todos;
             }
         }
-        return this.todos;
     }
 
     handleAddTodo(value: string) {

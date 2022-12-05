@@ -5,4 +5,4 @@ enum TodoStates {
     DEFAULT = '/'
 }
 
-export default TodoStates
+export default TodoStates;

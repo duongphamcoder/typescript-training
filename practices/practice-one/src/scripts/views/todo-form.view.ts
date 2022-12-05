@@ -41,9 +41,9 @@ export default class TodoFormView {
     private render() {
         let datas = this.todoController.getTodos(this.hash);
         if (this.hash === TodoStates.COMPLETED && datas.length > 0) {
-            this.formGroupElemnt.classList.add('not-empty')
+            this.formGroupElemnt.classList.add('not-empty');
         } else if (datas.length > 0) {
-            this.formGroupElemnt.classList.add('not-empty')
+            this.formGroupElemnt.classList.add('not-empty');
         }
         this.todosElement.innerHTML = '';
         datas.forEach((todo) => {
@@ -63,24 +63,37 @@ export default class TodoFormView {
         this.formElement.addEventListener('submit', (e) => {
             e.preventDefault();
             const text = this.textElment.value.trim();
-            this.todoController.handleAddTodo(text)
+            this.todoController.handleAddTodo(text);
         });
-        this.checkAllElement.addEventListener('click', (e) => { });
+        this.checkAllElement.addEventListener('click', (e) => { this.handleCheckAll() });
     }
 
     /**
-   * - Add a new job to do
-   * @param data
-   */
+     * - Add a new job to do
+     * @param data
+     */
     handleAddTodo(data: Param) {
         const todoItem = todoItemTemplate(data);
-        if (this.hash !== '#/completed') {
+        if (this.hash !== TodoStates.COMPLETED) {
             this.todosElement.appendChild(todoItem);
             this.handleUpdateSizeTodo(this.hash);
         }
         this.textElment.value = '';
         this.formGroupElemnt.classList.add('not-empty');
-        showNotifications(NotifyMessage.CREATE)
+        showNotifications(NotifyMessage.CREATE);
+    }
+
+    /**
+     * - Handle button finish all work
+     */
+    private handleCheckAll() {
+        const checkBtn = querySelectorAll('.btn-checkbox')
+        checkBtn.forEach(btn => {
+            btn.classList.add('checked');
+            const liElement = btn.parentElement.parentElement as HTMLLIElement
+            liElement.classList.add('completed');
+            this.handleCompletedTodo(liElement);
+        })
     }
 
     /**
@@ -88,7 +101,7 @@ export default class TodoFormView {
      */
     private addEventFilterButton() {
         const option = {
-            all: '/',
+            all: TodoStates.DEFAULT,
             active: TodoStates.ACTIVE,
             completed: TodoStates.COMPLETED,
         };
@@ -147,7 +160,7 @@ export default class TodoFormView {
         const result = this.todoController.handleUpdateTodo(id, value);
         if (result.isUpdate) {
             element.textContent = value;
-            showNotifications(NotifyMessage.UPDATE)
+            showNotifications(NotifyMessage.UPDATE);
         }
         return result;
     }
@@ -158,11 +171,11 @@ export default class TodoFormView {
      */
     handleCompletedTodo(element: HTMLLIElement) {
         const data = element.getAttribute('data-item');
-        this.todoController.handleCompletedTodo(parseInt(data))
-        if (this.hash === '#/completed' || this.hash === '#/active') {
-            element.remove()
+        this.todoController.handleCompletedTodo(parseInt(data));
+        if (this.hash === TodoStates.COMPLETED || this.hash === TodoStates.ACTIVE) {
+            element.remove();
         }
-        this.handleUpdateSizeTodo(this.hash)
+        this.handleUpdateSizeTodo(this.hash);
     }
 
     /**
@@ -171,11 +184,11 @@ export default class TodoFormView {
      */
     handleDeletedTodo(element: HTMLLIElement) {
         const data = element.getAttribute('data-item');
-        const confirmValue = confirm("Are you sure?")
+        const confirmValue = confirm("Are you sure?");
         if (confirmValue) {
-            const { dataLength } = this.todoController.handleDeletedTodo(+data)
+            const { dataLength } = this.todoController.handleDeletedTodo(+data);
             element.remove();
-            showNotifications(NotifyMessage.DELETE)
+            showNotifications(NotifyMessage.DELETE);
             this.handleUpdateSizeTodo(this.hash);
             if (!dataLength) {
                 this.formGroupElemnt.classList.remove('not-empty');
@@ -188,8 +201,8 @@ export default class TodoFormView {
      * @param  hash
      */
     private handleUpdateSizeTodo(hash: string) {
-        const completed = querySelectorAll('.completed').length
-        const active = querySelectorAll('.todos .form-control').length
+        const completed = querySelectorAll('.completed').length;
+        const active = querySelectorAll('.todos .form-control').length;
         let size = 0;
         switch (hash) {
             case TodoStates.COMPLETED: {
