@@ -1,5 +1,4 @@
 import { querySelector, querySelectorAll } from '../helpers/bind-dom.helper';
-import { TodoType } from '../models/todo.model';
 import TodoStates from '../constants/hash.constant';
 import todoItemTemplate, { Param } from './templates/todo-item.template';
 import TodoController, { Update } from '../controllers/todo.controller';
@@ -48,7 +47,7 @@ export default class TodoFormView {
         this.todosElement.innerHTML = '';
         datas.forEach((todo) => {
             const param: Param = {
-                data: todo,
+                ...todo,
                 handleCompletedTodo: this.handleCompletedTodo.bind(this),
                 handleDeletedTodo: this.handleDeletedTodo.bind(this),
                 handleUpdateTodo: this.handleUpdateTodo.bind(this),

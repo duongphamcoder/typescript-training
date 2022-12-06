@@ -6,47 +6,46 @@ type HandleDeletedTodo = (element: HTMLLIElement) => void
 type HandleCompletedTodo = (element: HTMLLIElement) => void
 type HandleUpdateTodo = (element: HTMLParagraphElement, value: string, data: number) => Update
 
-export interface Param {
-    data: TodoType;
+export interface Param extends TodoType {
     handleCompletedTodo: HandleCompletedTodo,
     handleUpdateTodo: HandleUpdateTodo,
     handleDeletedTodo: HandleDeletedTodo,
 }
 
 export default (param: Param): HTMLLIElement => {
-    const completed = param.data.isCompleted ? 'completed' : 'temp';
+    const completed = param.isCompleted ? 'completed' : 'temp';
     const liElement = createElement('li') as HTMLLIElement;
     liElement.classList.add('form-control', `${completed}`);
-    liElement.setAttribute('data-item', `${param.data.id}`);
+    liElement.setAttribute('data-item', `${param.id}`);
     const html = ` 
         <div class="form-control-icon">
             <!--
                 - add checked class when selected
                 - also have to add the completed class when adding the checked class
             -->
-            <button class="btn btn-checkbox ${param.data.isCompleted && 'checked'
-        }" data-completed='${param.data.id}'></button>
+            <button class="btn btn-checkbox ${param.isCompleted && 'checked'
+        }" data-completed='${param.id}'></button>
         </div>
         <!--add edit class when you want to edit-->
         <div class="form-control-input">
         <div class="pesudo">
-        <p class="pesudo-value">${param.data.title}</p>
+        <p class="pesudo-value">${param.title}</p>
         <div class="pesudo-time">
-            <p class="pesudo-time-create">CreatedAt: ${param.data.createdAt}</p>
-            <p class="pesudo-time-update">UpdatedAt: ${param.data.updatedAt}</p>
+            <p class="pesudo-time-create">CreatedAt: ${param.createdAt}</p>
+            <p class="pesudo-time-update">UpdatedAt: ${param.updatedAt}</p>
         </div>
         </div>
         <form action="#" method="POST"> 
             <input
             class="form-control-input-value"
             type="text"
-            value="${param.data.title}"
-            data-update='${param.data.id}'
+            value="${param.title}"
+            data-update='${param.id}'
         />
         </form>
         </div>
         <div class="form-control-icon">
-            <button class="btn btn-delete" data-deleted='${param.data.id
+            <button class="btn btn-delete" data-deleted='${param.id
         }'></button>
         </div>`;
     liElement.innerHTML = html;
