@@ -41,7 +41,7 @@ export default class TodoController {
 
     handleAddTodo(value: string) {
         if (Boolean(value)) {
-            const currentDate = getCurrentDate()
+            const currentDate = getCurrentDate();
             const data: TodoType = {
                 id: this.todos.length,
                 title: value,
@@ -50,7 +50,7 @@ export default class TodoController {
                 updatedAt: currentDate
             }
             const param: Param = {
-                data,
+                ...data,
                 handleCompletedTodo: this.todoView.handleCompletedTodo.bind(this.todoView),
                 handleDeletedTodo: this.todoView.handleDeletedTodo.bind(this.todoView),
                 handleUpdateTodo: this.todoView.handleUpdateTodo.bind(this.todoView),
@@ -63,7 +63,7 @@ export default class TodoController {
 
     handleUpdateTodo(id: number, value: string): Update {
         if (Boolean(value)) {
-            const currentDate = getCurrentDate()
+            const currentDate = getCurrentDate();
             const data = this.todos.filter((todo) => todo.id === id)[0];
             data.title = value;
             data.updatedAt = currentDate;
