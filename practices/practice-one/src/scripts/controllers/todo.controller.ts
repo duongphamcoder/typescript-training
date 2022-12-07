@@ -1,10 +1,12 @@
 import { TodoType } from '../models/todo.model'
 import { Param } from '../views/templates/todo-item.template'
 import store from '../helpers/store';
-import TYPE from '../constants/type-message.constant';
-import TodoFormView from '../views/todo-form.view';
-import TodoStates from '../constants/hash.constant';
+import STATUS from '../constants/type-message';
+import { Messages } from '../constants/messages';
+import TodoView from '../views/todo.view';
+import TodoStates from '../constants/todo-state';
 import { getCurrentDate } from '../helpers/date';
+import NotificationController from '../controllers/notification.controller';
 
 type Delete = {
     type: string;
@@ -17,12 +19,14 @@ export type Update = {
 }
 
 export default class TodoController {
+    private notificationController: NotificationController;
     private todos: TodoType[];
-    private todoView: TodoFormView;
-    constructor(TodoFormView) {
+    private todoView: TodoView;
+    constructor(TodoView) {
+        this.notificationController = new NotificationController();
         const todoLocals = JSON.parse(store('todos').get());
         this.todos = todoLocals || [];
-        this.todoView = TodoFormView
+        this.todoView = TodoView
     }
 
     getTodos(hash: string): TodoType[] {
@@ -56,8 +60,9 @@ export default class TodoController {
                 handleUpdateTodo: this.todoView.handleUpdateTodo.bind(this.todoView),
             };
             this.todos.push(data);
-            store('todos').save(this.todos);
+            store('todos').save<TodoType[]>(this.todos);
             this.todoView.handleAddTodo(param);
+            this.notificationController.show({ message: Messages.CREATE, duringTime: 2000 })
         }
     }
 
@@ -67,7 +72,8 @@ export default class TodoController {
             const data = this.todos.filter((todo) => todo.id === id)[0];
             data.title = value;
             data.updatedAt = currentDate;
-            store('todos').save(this.todos);
+            store('todos').save<TodoType[]>(this.todos);
+            this.notificationController.show({ message: Messages.UPDATE, duringTime: 2000 })
             return {
                 isUpdate: true,
                 time: currentDate
@@ -82,14 +88,15 @@ export default class TodoController {
     handleCompletedTodo(id: number) {
         const data = this.todos.filter(todo => todo.id === id)[0];
         data.isCompleted = !data.isCompleted;
-        store('todos').save(this.todos);
+        store('todos').save<TodoType[]>(this.todos);
     }
 
     handleDeletedTodo(id: number): Delete {
         this.todos = this.todos.filter(todo => todo.id !== id)
-        store('todos').save(this.todos);;
+        store('todos').save<TodoType[]>(this.todos);
+        this.notificationController.show({ message: Messages.DELETE })
         return {
-            type: TYPE.SUCCESS,
+            type: STATUS.SUCCESS,
             dataLength: this.todos.length,
         }
     }

@@ -1,11 +1,9 @@
-import { querySelector, querySelectorAll } from '../helpers/bind-dom.helper';
-import TodoStates from '../constants/hash.constant';
+import { querySelector, querySelectorAll } from '../helpers/bind-dom';
+import TodoStates from '../constants/todo-state';
 import todoItemTemplate, { Param } from './templates/todo-item.template';
 import TodoController, { Update } from '../controllers/todo.controller';
-import { showNotifications } from '../helpers/notify'
-import { NotifyMessage } from '../constants/notify-message.constant'
 
-export default class TodoFormView {
+export default class TodoView {
     private todoController: TodoController;
     private formElement: HTMLFormElement;
     private formGroupElemnt: HTMLElement;
@@ -79,7 +77,6 @@ export default class TodoFormView {
         }
         this.textElment.value = '';
         this.formGroupElemnt.classList.add('not-empty');
-        showNotifications(NotifyMessage.CREATE);
     }
 
     /**
@@ -159,7 +156,6 @@ export default class TodoFormView {
         const result = this.todoController.handleUpdateTodo(id, value);
         if (result.isUpdate) {
             element.textContent = value;
-            showNotifications(NotifyMessage.UPDATE);
         }
         return result;
     }
@@ -187,7 +183,6 @@ export default class TodoFormView {
         if (confirmValue) {
             const { dataLength } = this.todoController.handleDeletedTodo(+data);
             element.remove();
-            showNotifications(NotifyMessage.DELETE);
             this.handleUpdateSizeTodo(this.hash);
             if (!dataLength) {
                 this.formGroupElemnt.classList.remove('not-empty');

@@ -1,6 +1,6 @@
-enum TYPE {
+enum STATUS {
     SUCCESS = "success",
     FAILED = "failed",
 }
 
-export default TYPE
+export default STATUS
