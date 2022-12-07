@@ -2,7 +2,7 @@
 
 ## Overview
 
--   This document provides the requirement for JavaScript practice one.
+-   This document provides the requirement for TypeScript practice one.
 -   Topics: To-do list
 
 ## Technical
@@ -55,6 +55,5 @@
 -   Run start project:
 
 ```bash
-    npm run json
     npm start
 ```
