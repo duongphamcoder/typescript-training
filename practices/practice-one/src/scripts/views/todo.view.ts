@@ -1,11 +1,9 @@
-import { querySelector, querySelectorAll } from '../helpers/bind-dom.helper';
-import TodoStates from '../constants/hash.constant';
+import { querySelector, querySelectorAll } from '../helpers/bind-dom';
+import TodoStates from '../constants/todo-state';
 import todoItemTemplate, { Param } from './templates/todo-item.template';
 import TodoController, { Update } from '../controllers/todo.controller';
-import { showNotifications } from '../helpers/notify'
-import { NotifyMessage } from '../constants/notify-message.constant'
 
-export default class TodoFormView {
+export default class TodoView {
     private todoController: TodoController;
     private formElement: HTMLFormElement;
     private formGroupElemnt: HTMLElement;
@@ -54,6 +52,7 @@ export default class TodoFormView {
             };
             const todoItem = todoItemTemplate(param);
             this.todosElement.appendChild(todoItem);
+            this.addEventTodoItem(todoItem);
         });
         this.handleUpdateSizeTodo(this.hash);
     }
@@ -75,11 +74,53 @@ export default class TodoFormView {
         const todoItem = todoItemTemplate(data);
         if (this.hash !== TodoStates.COMPLETED) {
             this.todosElement.appendChild(todoItem);
+            this.addEventTodoItem(todoItem);
             this.handleUpdateSizeTodo(this.hash);
         }
         this.textElment.value = '';
         this.formGroupElemnt.classList.add('not-empty');
-        showNotifications(NotifyMessage.CREATE);
+    }
+
+    /**
+     * Add event todo item
+     * @pram liElement 
+     */
+    private addEventTodoItem(liElement: HTMLLIElement) {
+        const edit = liElement.querySelector('.form-control-input');
+        const btnComplete: HTMLButtonElement = liElement.querySelector('.btn-checkbox');
+        const inputUpdate: HTMLFormElement = liElement.querySelector('form');
+        const textElemnt: HTMLInputElement = inputUpdate.querySelector('input');
+        const btnDelete: HTMLButtonElement = liElement.querySelector('.btn-delete');
+        const pesudo: HTMLParagraphElement = liElement.querySelector('.pesudo .pesudo-value') as HTMLParagraphElement;
+        const timeUpdate: HTMLParagraphElement = liElement.querySelector('.pesudo-time-update') as HTMLParagraphElement;
+
+        btnDelete.addEventListener('click', () => {
+            this.handleDeletedTodo(liElement);
+        });
+
+        btnComplete.addEventListener('click', () => {
+            btnComplete.classList.toggle('checked');
+            liElement.classList.toggle('completed');
+            this.handleCompletedTodo(liElement);
+        });
+
+        pesudo.addEventListener('dblclick', () => {
+            edit.classList.add('edit');
+            textElemnt.focus();
+        });
+
+        inputUpdate.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const result: Update = this.handleUpdateTodo(
+                pesudo,
+                textElemnt.value,
+                +liElement.getAttribute('data-item')
+            );
+            if (result.isUpdate) {
+                edit.classList.remove('edit');
+                timeUpdate.textContent = `UpdatedAt: ${result.time}`;
+            }
+        });
     }
 
     /**
@@ -159,7 +200,6 @@ export default class TodoFormView {
         const result = this.todoController.handleUpdateTodo(id, value);
         if (result.isUpdate) {
             element.textContent = value;
-            showNotifications(NotifyMessage.UPDATE);
         }
         return result;
     }
@@ -187,7 +227,6 @@ export default class TodoFormView {
         if (confirmValue) {
             const { dataLength } = this.todoController.handleDeletedTodo(+data);
             element.remove();
-            showNotifications(NotifyMessage.DELETE);
             this.handleUpdateSizeTodo(this.hash);
             if (!dataLength) {
                 this.formGroupElemnt.classList.remove('not-empty');

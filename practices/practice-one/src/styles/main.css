@@ -8,7 +8,7 @@
 /*
     Common styles
 */
-@import url(./common/index.css);
+@import url(./commons/index.css);
 
 /*
     Component styles
@@ -18,4 +18,5 @@
 /*
     Section styles
 */
+@import url(./layout/index.css);
 @import url(./sections/index.css);

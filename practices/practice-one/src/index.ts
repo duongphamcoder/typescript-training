@@ -1,4 +1,4 @@
-import TodoFormView from "./scripts/views/todo-form.view";
+import TodoFormView from "./scripts/views/todo.view";
 const todoFormView = new TodoFormView()
 
 if (document.readyState === 'loading') {

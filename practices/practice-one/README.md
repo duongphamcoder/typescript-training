@@ -1,9 +1,14 @@
-# Practice One
+# Practice One - ToDo List
 
 ## Overview
 
--   This document provides the requirement for TypeScript practice one.
--   Topics: To-do list
+-   This is an application used to create and help us manage to-dos.
+-   The application will have some basic functions such as:
+    -   As a user they can create a todo item.
+    -   User can delete to-do when user doesn't want to continue doing it.
+    -   Users can update the content of their to-do work when something is wrong.
+    -   Users can mark the tasks that they have completed.
+    -   Display all of todo created by user with information such as title, time, status, etc.
 
 ## Technical
 
@@ -29,8 +34,7 @@
 
 ## Targets
 
--   Understand HTML/CSS properties and use them correctly
--   Know how to call API to get data from json-server
+-   Understand HTML5/CSS3 properties and use them correctly
 -   Apply knowledge of TypeScript
 
 **Step one:** Clone the code folder from git to your device

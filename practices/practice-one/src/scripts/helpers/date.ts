@@ -1,4 +1,4 @@
-const getCurrentDate = (): string => {
+export const getCurrentDate = (): string => {
     const date = new Date();
     const formatDate = `${date.getDate()}-${date.getMonth() + 1
         }-${date.getFullYear()}`;
@@ -6,5 +6,3 @@ const getCurrentDate = (): string => {
     const currentDate = `${formatDate} ${formatTime}`;
     return currentDate;
 };
-
-export { getCurrentDate }

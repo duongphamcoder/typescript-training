@@ -12,12 +12,12 @@ class Todo {
     private isCompleted: boolean;
     private createdAt: string;
     private updatedAt: string;
-    constructor(data: TodoType) {
-        this.id = data.id;
-        this.title = data.title;
-        this.isCompleted = data.isCompleted;
-        this.createdAt = data.createdAt;
-        this.updatedAt = data.updatedAt;
+    constructor(todo: TodoType) {
+        this.id = todo.id;
+        this.title = todo.title;
+        this.isCompleted = todo.isCompleted;
+        this.createdAt = todo.createdAt;
+        this.updatedAt = todo.updatedAt;
     }
 
     getID(): number {

@@ -11,8 +11,5 @@
   "devDependencies": {
     "parcel-bundler": "^1.12.5",
     "typescript": "^4.9.3"
-  },
-  "dependencies": {
-    "json-server": "^0.17.1"
   }
 }
