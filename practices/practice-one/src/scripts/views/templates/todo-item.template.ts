@@ -52,42 +52,6 @@ export default (param: Param): HTMLLIElement => {
             </button>
         </div>`;
     liElement.innerHTML = html;
-    const edit = liElement.querySelector('.form-control-input');
-    const btnComplete: HTMLButtonElement = liElement.querySelector('.btn-checkbox');
-    const inputUpdate: HTMLFormElement = liElement.querySelector('form');
-    const textElemnt: HTMLInputElement = inputUpdate.querySelector('input');
-    const btnDelete: HTMLButtonElement = liElement.querySelector('.btn-delete');
-    const pesudo: HTMLParagraphElement = liElement.querySelector('.pesudo .pesudo-value') as HTMLParagraphElement;
-    const timeUpdate: HTMLParagraphElement = liElement.querySelector('.pesudo-time-update') as HTMLParagraphElement;
-
-    btnDelete.addEventListener('click', () => {
-        param.handleDeletedTodo(liElement);
-    });
-
-    btnComplete.addEventListener('click', () => {
-        btnComplete.classList.toggle('checked');
-        liElement.classList.toggle('completed');
-        param.handleCompletedTodo(liElement);
-    });
-
-    pesudo.addEventListener('dblclick', () => {
-        edit.classList.add('edit');
-        textElemnt.focus();
-    });
-
-    inputUpdate.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const result: Update = param.handleUpdateTodo(
-            pesudo,
-            textElemnt.value,
-            +liElement.getAttribute('data-item')
-        );
-        if (result.isUpdate) {
-            edit.classList.remove('edit');
-            timeUpdate.textContent = `UpdatedAt: ${result.time}`;
-        }
-    });
-
     // <!-- add completed class when select button -->
     return liElement;
 };

@@ -1,7 +1,6 @@
-import { createElement, querySelector } from './bind-dom';
+import { createElement, querySelector } from "../../helpers/bind-dom"
 
-export const showNotifications = (message: string, duringTime: number) => {
-    const bodyElement: HTMLBodyElement = querySelector('body') as HTMLBodyElement
+export const showNotifications = (message: string) => {
     const sectionElement = createElement('section')
     sectionElement.classList.add('notification')
     const html = `
@@ -14,8 +13,5 @@ export const showNotifications = (message: string, duringTime: number) => {
     </div>
     `
     sectionElement.innerHTML = html;
-    bodyElement.appendChild(sectionElement)
-    setTimeout(() => {
-        sectionElement.remove()
-    }, duringTime)
+    return sectionElement;
 }

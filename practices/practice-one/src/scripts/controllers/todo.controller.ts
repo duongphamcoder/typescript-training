@@ -29,8 +29,13 @@ export default class TodoController {
         this.todoView = TodoView
     }
 
-    getTodos(hash: string): TodoType[] {
-        switch (hash) {
+    /**
+     * - Get todo by state
+     * @param state 
+     * @returns task list by state
+     */
+    getTodos(state: string): TodoType[] {
+        switch (state) {
             case TodoStates.COMPLETED: {
                 return this.todos.filter((todo) => todo.isCompleted);
             }
@@ -43,6 +48,10 @@ export default class TodoController {
         }
     }
 
+    /**
+     * - Handle add todo
+     * @param value 
+     */
     handleAddTodo(value: string) {
         if (Boolean(value)) {
             const currentDate = getCurrentDate();
@@ -66,6 +75,12 @@ export default class TodoController {
         }
     }
 
+    /**
+     * - Handle update todo 
+     * @param id id of to-do
+     * @param value Content needs updating
+     * @returns 
+     */
     handleUpdateTodo(id: number, value: string): Update {
         if (Boolean(value)) {
             const currentDate = getCurrentDate();
@@ -85,12 +100,21 @@ export default class TodoController {
         };
     }
 
+    /**
+     * - Handle completed todo
+     * @param id id of todo 
+     */
     handleCompletedTodo(id: number) {
         const data = this.todos.filter(todo => todo.id === id)[0];
         data.isCompleted = !data.isCompleted;
         store('todos').save<TodoType[]>(this.todos);
     }
 
+    /**
+     * - Handle delete todo
+     * @param id id of todo
+     * @returns 
+     */
     handleDeletedTodo(id: number): Delete {
         this.todos = this.todos.filter(todo => todo.id !== id)
         store('todos').save<TodoType[]>(this.todos);
